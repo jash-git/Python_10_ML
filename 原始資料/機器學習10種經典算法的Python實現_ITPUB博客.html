@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)http://blog.itpub.net/29829936/viewspace-2653483/ -->
+<html lang="zh-TW" class="translated-ltr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>機器學習10種經典算法的Python實現_ITPUB博客</title>
+    <meta name="keywords" content="人工智能,机器学习">
+    <meta name="description" content="广义来说，有三种机器学习算法1、 监督式学习工作机制：这个算法由一个目标变量或结果变量（或因变量）组成。这些变量由已知的一系列预示变量（自变量）预测而来。利用这一系列变量，我们生成一个将输入值映射到期望输出值的函数。这个训练过程会一直持续，直到模型在训练数据上获得期望的精确度。监督式学习的例子有：回归、决策树、随机森林、K – 近邻算法、逻辑回归等。2、非监督式学习工作机制：在这个算法中，没有任何ITPUB博客每天千篇余篇博文新资讯，40多万活跃博主，为IT技术人提供全面的IT资讯和交流互动的IT博客平台-中国专业的IT技术ITPUB博客。">
+
+    <link rel="stylesheet" href="./機器學習10種經典算法的Python實現_ITPUB博客_files/layui.css">
+    <link rel="stylesheet" href="./機器學習10種經典算法的Python實現_ITPUB博客_files/base.css">
+    <link rel="stylesheet" href="./機器學習10種經典算法的Python實現_ITPUB博客_files/zhuanlan.css">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="./機器學習10種經典算法的Python實現_ITPUB博客_files/hm.js.下載"></script><script src="./機器學習10種經典算法的Python實現_ITPUB博客_files/push.js.下載"></script><script src="./機器學習10種經典算法的Python實現_ITPUB博客_files/jquery.js.下載"></script>
+    <script src="./機器學習10種經典算法的Python實現_ITPUB博客_files/base.js.下載"></script>
+
+    <script src="./機器學習10種經典算法的Python實現_ITPUB博客_files/layui.js.下載"></script>
+        <script type="text/javascript" src="./機器學習10種經典算法的Python實現_ITPUB博客_files/jquery.placeholder.min.js.下載"></script>
+<script src="./機器學習10種經典算法的Python實現_ITPUB博客_files/share.js.下載"></script><link rel="stylesheet" href="./機器學習10種經典算法的Python實現_ITPUB博客_files/share_style0_16.css"><link type="text/css" rel="stylesheet" charset="UTF-8" href="./機器學習10種經典算法的Python實現_ITPUB博客_files/translateelement.css"></head>
+<body>
+
+<!--header部分开始-->
+<div class="blog-header">
+    <div class="w1200">
+        <a href="http://blog.itpub.net/" class="fl"><h1 class="logo"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ITPub博客</font></font></h1></a>
+        <div class="nav fl">
+            <a href="http://www.itpub.net/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">首頁</font></font></a>
+            <a href="http://blog.itpub.net/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">博客</font></font></a>
+            <a href="http://blog.itpub.net/column"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">專欄</font></font></a>
+            <a href="http://edu.itpub.net/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">學院</font></font></a>
+            <a href="http://www.itpub.net/forum.php"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">社區</font></font></a>
+            <a href="https://z.itpub.net/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">技術棧</font></font></a>
+        </div>
+        <div class="fr">
+            <form action="http://blog.itpub.net/search/blog/" class="layui-form blog-search-wrap fl">
+                <input type="hidden" name="type" value="blog">
+                <input placeholder="搜索" type="text" class="layui-input" name="keyword">
+                <button class="search-btn icon-blog"></button>
+            </form>
+            <a href="http://blog.itpub.net/blog/post/" class="layui-btn layui-btn-primary fl mlr30" target="_blank"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">發博</font></font></a>
+            <!--登录前-->
+            <div class="fl head-name" id="u_info"><a class="blog-login"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">登錄</font></font></a><a href="http://account.itpub.net/register" target="_blank" class="blog-register"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">註冊</font></font></a></div>
+        </div>
+    </div>
+</div>
+<!--header部分结束-->
+    <script type="text/javascript">
+        // 手机适配
+        if (/AppleWebKit.*mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
+            if (window.location.href.indexOf("?mobile") < 0) {
+                if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+                    window.location.href = "http://m.blog.itpub.net/29829936/viewspace-2653483/";
+                }
+            }
+        }
+    </script>
+
+    
+    <link href="./機器學習10種經典算法的Python實現_ITPUB博客_files/shCoreDefault.css" rel="stylesheet" type="text/css">
+    <script src="./機器學習10種經典算法的Python實現_ITPUB博客_files/shCore.js.下載" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            SyntaxHighlighter.all()
+        });
+    </script>
+    <script src="./機器學習10種經典算法的Python實現_ITPUB博客_files/template.js.下載"></script>
+    <script src="./機器學習10種經典算法的Python實現_ITPUB博客_files/detail.js.下載"></script>
+    <style>
+        .code .container > textarea{ height:100%; }
+        .translate{color: #9fa3a7 !important;font-size:12px !important;}
+        .translate a{font-size:12px !important;color:#9fa3a7 !important;}
+        .translate a:hover {font-size:12px !important;color:#f15142 !important;}
+        .newslist{padding:10px 5px;height:20px !important;line-height:20px;overflow:hidden;text-overflow: ellipsis;white-space: nowrap;border-bottom:1px solid #eee}
+    </style>
+
+
+    <style>
+        .crumb{
+            padding: 10px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(238,238,238,0.4);
+        }
+        .crumb p{
+            width: 1200px;
+            margin: 0 auto;
+        }
+        .newul{
+            line-height: 25px;
+        }
+        .new-item{
+            padding: 5px;
+            display: block;
+            width: 250px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        #doc-content img{
+            margin:none;
+            display:initial;
+        }
+        
+        .syntaxhighlighter{
+            width:890px;
+        }
+        
+        .syntaxhighlighter td.code .line{
+            white-space: nowrap;
+        }
+        
+        .syntaxhighlighter td.code .container{
+            width:840px!important;
+        }
+        
+        .syntaxhighlighter td.code{
+            overflow: scroll!important;
+        }
+
+    </style>
+
+    <div class="crumb">
+        <p>
+            <a href="http://blog.itpub.net/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">首頁</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> &gt;
+             </font></font><a href="http://blog.itpub.net/ai/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">人工智能</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> &gt;
+             </font></font><a href="http://blog.itpub.net/machine/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">機器學習</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> &gt;
+             </font></font><a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">機器學習10種經典算法的Python實現</font></font></a>
+        </p>
+    </div>
+    <!--main部分开始-->
+    <div class="blog-main clearfix w1200">
+        <div class="preview-wrap">
+            <div class="preview-header">
+                <h1 class="preview-title "><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">機器學習10種經典算法的Python實現                 </font></font></h1>
+                <div class="mess">
+                                        <span style="margin: auto 10px auto 0px"><a href="http://blog.itpub.net/machine/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">機器學習</font></font></a></span>
+                                            <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">作者：</font></font><a href="http://blog.itpub.net/29829936/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">dicksonjyl560101</font></font></a></span>
+                                        <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">時間：2019-08-13 09:40:43</font></font></span>
+                    <span class="dian"></span>
+                    <span class="icon-see"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">505</font></font></span>
+                    <span class="dian"></span>
+                    <span class="icon-comment"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">0</font></font></span>
+
+                    <!--博主本人和管理员 显示 开始-->
+                    <i class="superman"><a href="javascript:;" mid="2653483" onclick="blogObj.delDraft($(this))"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">刪除</font></font></a></i>
+                    <i class="superman"><a href="http://blog.itpub.net/blog/post/2653483/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">編輯</font></font></a></i>
+                    <!--博主本人和管理员 显示 结束-->
+                </div>
+            </div>
+            <div class="preview-body windowH">
+
+                <div class="preview-main">
+                                        
+                                            <p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+廣義來說，有三種機器學習算法
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+1、 監督式學習
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+工作機制：這個算法由一個目標變量或結果變量（或因變量）組成。</font><font style="vertical-align: inherit;">這些變量由已知的一系列預示變量（自變量）預測而來。</font><font style="vertical-align: inherit;">利用這一系列變量，我們生成一個將輸入值映射到期望輸出值的函數。</font><font style="vertical-align: inherit;">這個訓練過程會一直持續，直到模型在訓練數據上獲得期望的精確度。</font><font style="vertical-align: inherit;">監督式學習的例子有：回歸、決策樹、隨機森林、K – 近鄰算法、邏輯回歸等。
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+2、非監督式學習
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+工作機制：在這個算法中，沒有任何目標變量或結果變量要預測或估計。</font><font style="vertical-align: inherit;">這個算法用在不同的組內聚類分析。</font><font style="vertical-align: inherit;">這種分析方式被廣泛地用來細分客戶，根據干預的方式分為不同的用戶組。</font><font style="vertical-align: inherit;">非監督式學習的例子有：關聯算法和K – 均值算法。
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+3、強化學習
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+工作機制：這個算法訓練機器進行決策。</font><font style="vertical-align: inherit;">它是這樣工作的：機器被放在一個能讓它通過反複試錯來訓練自己的環境中。</font><font style="vertical-align: inherit;">機器從過去的經驗中進行學習，並且嘗試利用了解最透徹的知識作出精確的商業判斷。</font><font style="vertical-align: inherit;">強化學習的例子有馬爾可夫決策過程。
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+常見機器學習算法名單
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+這裡是一個常用的機器學習算法名單。</font><font style="vertical-align: inherit;">這些算法幾乎可以用在所有的數據問題上：
+</font></font></span>
+</p>
+<ol style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; padding: 20px 30px; list-style-position: outside; list-style-image: initial; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+線性回歸
+</font></font></span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+邏輯回歸
+</font></font></span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+決策樹
+</font></font></span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+SVM
+</font></font></span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+樸素貝葉斯
+</font></font></span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+K最近鄰算法
+</font></font></span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+K均值算法
+</font></font></span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+隨機森林算法
+</font></font></span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+降維算法
+</font></font></span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+Gradient Boost 和Adaboost 算法
+</font></font></span>
+</li>
+</ol>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+1、線性回歸
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+線性回歸通常用於根據連續變量估計實際數值（房價、呼叫次數、總銷售額等）。</font><font style="vertical-align: inherit;">我們通過擬合最佳直線來建立自變量和因變量的關係。</font><font style="vertical-align: inherit;">這條最佳直線叫做回歸線，並且用Y= a *X + b 這條線性等式來表示。
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+理解線性回歸的最好辦法是回顧一下童年。</font><font style="vertical-align: inherit;">假設在不問對方體重的情況下，讓一個五年級的孩子按體重從輕到重的順序對班上的同學排序，你覺得這個孩子會怎麼做？</font><font style="vertical-align: inherit;">他（她）很可能會目測人們的身高和體型，綜合這些可見的參數來排列他們。</font><font style="vertical-align: inherit;">這是現實生活中使用線性回歸的例子。</font><font style="vertical-align: inherit;">實際上，這個孩子發現了身高和體型與體重有一定的關係，這個關係看起來很像上面的等式。
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+在這個等式中：
+</font></font></span>
+</p>
+<ul style="list-style-type: square;">
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+Y：因變量
+</font></font></span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+a：斜率
+</font></font></span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+x：自變量
+</font></font></span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+b ：截距
+</font></font></span>
+</li>
+</ul>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+係數a 和b 可以通過最小二乘法獲得。
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+參見下例。</font><font style="vertical-align: inherit;">我們找出最佳擬合直線y=0.2811x+13.9 。</font><font style="vertical-align: inherit;">已知人的身高，我們可以通過這條等式求出體重。
+</font></font></span>
+</p>
+<div class="pgc-img" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/b9e8bd04401941608f1a140663298463" alt="機器學習10種經典算法的Python實現">
+<p class="pgc-img-caption" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; padding: 0px; text-align: center; font-size: 12px; color: rgb(119, 119, 119); line-height: 16px;">
+</p>
+</div>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+線性回歸的兩種主要類型是一元線性回歸和多元線性回歸。</font><font style="vertical-align: inherit;">一元線性回歸的特點是只有一個自變量。</font><font style="vertical-align: inherit;">多元線性回歸的特點正如其名，存在多個自變量。</font><font style="vertical-align: inherit;">找最佳擬合直線的時候，你可以擬合到多項或者曲線回歸。</font><font style="vertical-align: inherit;">這些就被叫做多項或曲線回歸。
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+Python 代碼
+</font></font></span>
+</p>
+<pre style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-family: Consolas, Menlo, Courier, monospace; white-space: pre-wrap; position: relative; line-height: 1.5; color: rgb(153, 153, 153); margin-top: 1em; margin-bottom: 1em; padding: 12px 10px; background-color: rgb(244, 245, 246); border: 1px solid rgb(232, 232, 232);"><span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+#Import Library</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+#Import other necessary libraries like pandas, numpy...</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+from sklearn import linear_model</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+#Load Train and Test datasets</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+#Identify feature and response variable(s) and values must be numeric and numpy arrays</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+x_train=input_variables_values_training_datasets</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+y_train=target_variables_values_training_datasets</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+x_test=input_variables_values_test_datasets</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+# Create linear regression object</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+linear = linear_model.LinearRegression()</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+# Train the model using the training sets and check score</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+linear.fit(x_train, y_train)</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+linear.score(x_train, y_train)</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+#Equation coefficient and Intercept</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+print('Coefficient: n', linear.coef_)</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+print('Intercept: n', linear.intercept_)</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+#Predict Output</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+predicted= linear.predict(x_test)</font></font><font></font>
+<br>
+</span>
+</pre>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+2、邏輯回歸
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+別被它的名字迷惑了！</font><font style="vertical-align: inherit;">這是一個分類算法而不是一個回歸算法。</font><font style="vertical-align: inherit;">該算法可根據已知的一系列因變量估計離散數值（比方說二進制數值0 或1 ，是或否，真或假）。</font><font style="vertical-align: inherit;">簡單來說，它通過將數據擬合進一個邏輯函數來預估一個事件出現的概率。</font><font style="vertical-align: inherit;">因此，它也被叫做邏輯回歸。</font><font style="vertical-align: inherit;">因為它預估的是概率，所以它的輸出值大小在0 和1 之間（正如所預計的一樣）。
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+讓我們再次通過一個簡單的例子來理解這個算法。
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+假設你的朋友讓你解開一個謎題。</font><font style="vertical-align: inherit;">這只會有兩個結果：你解開了或是你沒有解開。</font><font style="vertical-align: inherit;">想像你要解答很多道題來找出你所擅長的主題。</font><font style="vertical-align: inherit;">這個研究的結果就會像是這樣：假設題目是一道十年級的三角函數題，你有70%的可能會解開這道題。</font><font style="vertical-align: inherit;">然而，若題目是個五年級的歷史題，你只有30%的可能性回答正確。</font><font style="vertical-align: inherit;">這就是邏輯回歸能提供給你的信息。
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+從數學上看，在結果中，機率的對數使用的是預測變量的線性組合模型。
+</font></font></span>
+</p>
+<pre style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-family: Consolas, Menlo, Courier, monospace; white-space: pre-wrap; position: relative; line-height: 1.5; color: rgb(153, 153, 153); margin-top: 1em; margin-bottom: 1em; padding: 12px 10px; background-color: rgb(244, 245, 246); border: 1px solid rgb(232, 232, 232);"><span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+odds= p/ (1-p) = probability of event occurrence / probability of not event occurrence</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+ln(odds) = ln(p/(1-p))</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+logit(p) = ln(p/(1-p)) = b0+b1X1+b2X2+b3X3....+bkXk</font></font><font></font>
+<br>
+</span>
+</pre>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+在上面的式子裡，p 是我們感興趣的特徵出現的概率。</font><font style="vertical-align: inherit;">它選用使觀察樣本值的可能性最大化的值作為參數，而不是通過計算誤差平方和的最小值（就如一般的回歸分析用到的一樣）。
+</font></font></span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+現在你也許要問了，為什麼我們要求出對數呢？</font><font style="vertical-align: inherit;">簡而言之，這種方法是複制一個階梯函數的最佳方法之一。</font><font style="vertical-align: inherit;">我本可以更詳細地講述，但那就違背本篇指南的主旨了。
+</font></font></span>
+</p>
+<div class="pgc-img" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/3e5daed92c7c4a9d8ab82cd4ee3dff41" alt="機器學習10種經典算法的Python實現">
+<p class="pgc-img-caption" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; padding: 0px; text-align: center; font-size: 12px; color: rgb(119, 119, 119); line-height: 16px;">
+</p>
+</div>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+Python代碼
+</font></font></span>
+</p>
+<pre style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-family: Consolas, Menlo, Courier, monospace; white-space: pre-wrap; position: relative; line-height: 1.5; color: rgb(153, 153, 153); margin-top: 1em; margin-bottom: 1em; padding: 12px 10px; background-color: rgb(244, 245, 246); border: 1px solid rgb(232, 232, 232);"><span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+#Import Library</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+from sklearn.linear_model import LogisticRegression</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+# Create logistic regression object</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+model = LogisticRegression()</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+# Train the model using the training sets and check score</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+model.fit(X, y)</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+model.score(X, y)</font></font><font></font>
+<br><font></font>
+#Equation coefficient and Intercept<font></font>
+<br><font></font>
+print('Coefficient: n', model.coef_)<font></font>
+<br><font></font>
+print('Intercept: n', model.intercept_)<font></font>
+<br><font></font>
+#Predict Output<font></font>
+<br><font></font>
+predicted= model.predict(x_test)<font></font>
+<br>
+</span>
+</pre>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+更进一步：
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+你可以尝试更多的方法来改进这个模型：
+</span>
+</p>
+<ul style="list-style-type: square;">
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+加入交互项
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+精简模型特性
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+使用正则化方法
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+使用非线性模型
+</span>
+</li>
+</ul>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+3、决策树
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+这是我最喜爱也是最频繁使用的算法之一。这个监督式学习算法通常被用于分类问题。令人惊奇的是，它同时适用于分类变量和连续因变量。在这个算法中，我们将总体分成两个或更多的同类群。这是根据最重要的属性或者自变量来分成尽可能不同的组别。想要知道更多，可以阅读：简化决策树 。
+</span>
+</p>
+<div class="pgc-img" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/2ebbdcd9aeeb407db0c270ed2aeaf220" alt="機器學習10種經典算法的Python實現">
+<p class="pgc-img-caption" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; padding: 0px; text-align: center; font-size: 12px; color: rgb(119, 119, 119); line-height: 16px;">
+</p>
+</div>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+来源： statsexchange
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+在上图中你可以看到，根据多种属性，人群被分成了不同的四个小组，来判断 “他们会不会去玩”。为了把总体分成不同组别，需要用到许多技术，比如说 Gini、Information Gain、Chi-square、entropy。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+理解决策树工作机制的最好方式是玩Jezzball，一个微软的经典游戏（见下图）。这个游戏的最终目的，是在一个可以移动墙壁的房间里，通过造墙来分割出没有小球的、尽量大的空间。
+</span>
+</p>
+<div class="pgc-img" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/093e02112ead4d1e98e238991403f8f4" alt="機器學習10種經典算法的Python實現">
+<p class="pgc-img-caption" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; padding: 0px; text-align: center; font-size: 12px; color: rgb(119, 119, 119); line-height: 16px;">
+</p>
+</div>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+因此，每一次你用墙壁来分隔房间时，都是在尝试着在同一间房里创建两个不同的总体。相似地，决策树也在把总体尽量分割到不同的组里去。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+更多信息请见： 决策树算法的简化
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+Python代码
+</span>
+</p>
+<pre style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-family: Consolas, Menlo, Courier, monospace; white-space: pre-wrap; position: relative; line-height: 1.5; color: rgb(153, 153, 153); margin-top: 1em; margin-bottom: 1em; padding: 12px 10px; background-color: rgb(244, 245, 246); border: 1px solid rgb(232, 232, 232);"><span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font></font>
+#Import Library<font></font>
+<br><font></font>
+#Import other necessary libraries like pandas, numpy...<font></font>
+<br><font></font>
+from sklearn import tree<font></font>
+<br><font></font>
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset<font></font>
+<br><font></font>
+# Create tree object <font></font>
+<br><font></font>
+model = tree.DecisionTreeClassifier(criterion='gini') <font></font>
+<br><font></font>
+# for classification, here you can change the algorithm as gini or entropy (information gain) by default it is gini <font></font>
+<br><font></font>
+# model = tree.DecisionTreeRegressor() for regression<font></font>
+<br><font></font>
+# Train the model using the training sets and check score<font></font>
+<br><font></font>
+model.fit(X, y)<font></font>
+<br><font></font>
+model.score(X, y)<font></font>
+<br><font></font>
+#Predict Output<font></font>
+<br><font></font>
+predicted= model.predict(x_test)<font></font>
+<br>
+</span>
+</pre>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+4、支持向量机
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+这是一种分类方法。在这个算法中，我们将每个数据在N维空间中用点标出（N是你所有的特征总数），每个特征的值是一个坐标的值。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+举个例子，如果我们只有身高和头发长度两个特征，我们会在二维空间中标出这两个变量，每个点有两个坐标（这些坐标叫做支持向量）。
+</span>
+</p>
+<div class="pgc-img" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/d4bf3f4646704bae87cd0ef82bba6006" alt="機器學習10種經典算法的Python實現">
+<p class="pgc-img-caption" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; padding: 0px; text-align: center; font-size: 12px; color: rgb(119, 119, 119); line-height: 16px;">
+</p>
+</div>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+现在，我们会找到将两组不同数据分开的一条直线。两个分组中距离最近的两个点到这条线的距离同时最优化。
+</span>
+</p>
+<div class="pgc-img" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/5f26b66999124b0cb17d913c34875d03" alt="機器學習10種經典算法的Python實現">
+<p class="pgc-img-caption" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; padding: 0px; text-align: center; font-size: 12px; color: rgb(119, 119, 119); line-height: 16px;">
+</p>
+</div>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+上面示例中的黑线将数据分类优化成两个小组，两组中距离最近的点（图中A、B点）到达黑线的距离满足最优条件。这条直线就是我们的分割线。接下来，测试数据落到直线的哪一边，我们就将它分到哪一类去。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+更多请见： 支持向量机的简化
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+将这个算法想作是在一个 N 维空间玩 JezzBall。需要对游戏做一些小变动：
+</span>
+</p>
+<ul style="list-style-type: square;">
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+比起之前只能在水平方向或者竖直方向画直线，现在你可以在任意角度画线或平面。
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+游戏的目的变成把不同颜色的球分割在不同的空间里。
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+球的位置不会改变。
+</span>
+</li>
+</ul>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+Python代码
+</span>
+</p>
+<pre style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-family: Consolas, Menlo, Courier, monospace; white-space: pre-wrap; position: relative; line-height: 1.5; color: rgb(153, 153, 153); margin-top: 1em; margin-bottom: 1em; padding: 12px 10px; background-color: rgb(244, 245, 246); border: 1px solid rgb(232, 232, 232);"><span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font></font>
+#Import Library<font></font>
+<br><font></font>
+from sklearn import svm<font></font>
+<br><font></font>
+#Assumed you have, X (predic<font></font>
+<br><font></font>
+tor) and Y (target) for training data set and x_test(predictor) of test_dataset<font></font>
+<br><font></font>
+# Create SVM classification object <font></font>
+<br><font></font>
+model = svm.svc() <font></font>
+<br><font></font>
+# there is various option associated with it, this is simple for classification. You can refer link, for mo# re detail.<font></font>
+<br><font></font>
+# Train the model using the training sets and check score<font></font>
+<br><font></font>
+model.fit(X, y)<font></font>
+<br><font></font>
+model.score(X, y)<font></font>
+<br><font></font>
+#Predict Output<font></font>
+<br><font></font>
+predicted= model.predict(x_test)<font></font>
+<br>
+</span>
+</pre>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+5、朴素贝叶斯
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+在预示变量间相互独立的前提下，根据 贝叶斯定理 可以得到朴素贝叶斯这个分类方法。用更简单的话来说，一个朴素贝叶斯分类器假设一个分类的特性与该分类的其它特性不相关。举个例子，如果一个水果又圆又红 ， 并且直径大约是 3 英寸，那么这个水果可能会是苹果。即便这些特性互相依赖 ， 或者依赖于别的特性的存在，朴素贝叶斯分类器还是会假设这些特性分别独立地暗示这个水果是个苹果。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+朴素贝叶斯模型易于建造，且对于大型数据集非常有用。虽然简单，但是朴素贝叶斯的表现却超越了非常复杂的分类方法。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+贝叶斯定理提供了一种从P(c)、P(x)和P(x|c) 计算后验概率 P(c|x) 的方法。请看以下等式：
+</span>
+</p>
+<div class="pgc-img" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/23999bcad17a4c6ca9298e900f43854b" alt="機器學習10種經典算法的Python實現">
+<p class="pgc-img-caption" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; padding: 0px; text-align: center; font-size: 12px; color: rgb(119, 119, 119); line-height: 16px;">
+</p>
+</div>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+在这里，
+</span>
+</p>
+<ul style="list-style-type: square;">
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+P ( c|x ) 是已知预示变量（属性）的前提下，类（目标）的后验概率
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+P ( c ) 是类的先验概率
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+P ( x|c ) 是可能性，即已知类的前提下，预示变量的概率
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+P ( x ) 是预示变量的先验概率
+</span>
+</li>
+</ul>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+例子：让我们用一个例子来理解这个概念。在下面，我有一个天气的训练集和对应的目标变量“Play”。现在，我们需要根据天气情况，将会“玩”和“不玩”的参与者进行分类。让我们执行以下步骤。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+步骤1：把数据集转换成频率表。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+步骤2：利用类似“当Overcast可能性为0.29时，玩耍的可能性为0.64”这样的概率，创造 Likelihood 表格。
+</span>
+</p>
+<div class="pgc-img" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/2edd0a3be69d4d7cae8e83f9c4c4148b" alt="機器學習10種經典算法的Python實現">
+<p class="pgc-img-caption" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; padding: 0px; text-align: center; font-size: 12px; color: rgb(119, 119, 119); line-height: 16px;">
+</p>
+</div>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+步骤3：现在，使用朴素贝叶斯等式来计算每一类的后验概率。后验概率最大的类就是预测的结果。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+问题：如果天气晴朗，参与者就能玩耍。这个陈述正确吗？
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+我们可以使用讨论过的方法解决这个问题。于是 P（会玩 | 晴朗）= P（晴朗 | 会玩）* P（会玩）/ P （晴朗）
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+我们有 P （晴朗 |会玩）= 3/9 = 0.33，P（晴朗） = 5/14 = 0.36, P（会玩）= 9/14 = 0.64
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+现在，P(会玩 | 晴朗）= 0.33 * 0.64 / 0.36 = 0.60，有更大的概率。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+朴素贝叶斯使用了一个相似的方法，通过不同属性来预测不同类别的概率。这个算法通常被用于文本分类，以及涉及到多个类的问题。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+Python代码
+</span>
+</p>
+<pre style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-family: Consolas, Menlo, Courier, monospace; white-space: pre-wrap; position: relative; line-height: 1.5; color: rgb(153, 153, 153); margin-top: 1em; margin-bottom: 1em; padding: 12px 10px; background-color: rgb(244, 245, 246); border: 1px solid rgb(232, 232, 232);"><span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font></font>
+#Import Library<font></font>
+<br><font></font>
+from sklearn.naive_bayes import GaussianNB<font></font>
+<br><font></font>
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset<font></font>
+<br><font></font>
+# Create SVM classification object model = GaussianNB() # there is other distribution for multinomial classes like Bernoulli Naive Bayes, Refer link<font></font>
+<br><font></font>
+# Train the model using the training sets and check score<font></font>
+<br><font></font>
+model.fit(X, y)<font></font>
+<br><font></font>
+#Predict Output<font></font>
+<br><font></font>
+predicted= model.predict(x_test)<font></font>
+<br>
+</span>
+</pre>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+6、KNN（K – 最近邻算法）
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+该算法可用于分类问题和回归问题。然而，在业界内，K – 最近邻算法更常用于分类问题。K – 最近邻算法是一个简单的算法。它储存所有的案例，通过周围k个案例中的大多数情况划分新的案例。根据一个距离函数，新案例会被分配到它的 K 个近邻中最普遍的类别中去。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+这些距离函数可以是欧式距离、曼哈顿距离、明式距离或者是汉明距离。前三个距离函数用于连续函数，第四个函数（汉明函数）则被用于分类变量。如果 K=1，新案例就直接被分到离其最近的案例所属的类别中。有时候，使用 KNN 建模时，选择 K 的取值是一个挑战。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+更多信息：K – 最近邻算法入门（简化版）
+</span>
+</p>
+<div class="pgc-img" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/1b5825a56a0c4bf0ac07487926c4581e" alt="機器學習10種經典算法的Python實現">
+<p class="pgc-img-caption" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; padding: 0px; text-align: center; font-size: 12px; color: rgb(119, 119, 119); line-height: 16px;">
+</p>
+</div>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+我们可以很容易地在现实生活中应用到 KNN。如果想要了解一个完全陌生的人，你也许想要去找他的好朋友们或者他的圈子来获得他的信息。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+在选择使用 KNN 之前，你需要考虑的事情：
+</span>
+</p>
+<ul style="list-style-type: square;">
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+KNN 的计算成本很高。
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+变量应该先标准化（normalized），不然会被更高范围的变量偏倚。
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+在使用KNN之前，要在野值去除和噪音去除等前期处理多花功夫。
+</span>
+</li>
+</ul>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+Python代码
+</span>
+</p>
+<pre style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-family: Consolas, Menlo, Courier, monospace; white-space: pre-wrap; position: relative; line-height: 1.5; color: rgb(153, 153, 153); margin-top: 1em; margin-bottom: 1em; padding: 12px 10px; background-color: rgb(244, 245, 246); border: 1px solid rgb(232, 232, 232);"><span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font></font>
+#Import Library<font></font>
+<br><font></font>
+from sklearn.neighbors import KNeighborsClassifier<font></font>
+<br><font></font>
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset<font></font>
+<br><font></font>
+# Create KNeighbors classifier object model <font></font>
+<br><font></font>
+KNeighborsClassifier(n_neighbors=6) <font></font>
+<br><font></font>
+# default value for n_neighbors is 5<font></font>
+<br><font></font>
+# Train the model using the training sets and check score<font></font>
+<br><font></font>
+model.fit(X, y)<font></font>
+<br><font></font>
+#Predict Output<font></font>
+<br><font></font>
+predicted= model.predict(x_test)<font></font>
+<br>
+</span>
+</pre>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+7、K 均值算法
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+K – 均值算法是一种非监督式学习算法，它能解决聚类问题。使用 K – 均值算法来将一个数据归入一定数量的集群（假设有 k 个集群）的过程是简单的。一个集群内的数据点是均匀齐次的，并且异于别的集群。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+还记得从墨水渍里找出形状的活动吗？K – 均值算法在某方面类似于这个活动。观察形状，并延伸想象来找出到底有多少种集群或者总体。
+</span>
+</p>
+<div class="pgc-img" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/47496b58f37a4d67a102e3a0cbd0e7d9" alt="機器學習10種經典算法的Python實現">
+<p class="pgc-img-caption" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; padding: 0px; text-align: center; font-size: 12px; color: rgb(119, 119, 119); line-height: 16px;">
+</p>
+</div>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+K – 均值算法怎样形成集群：
+</span>
+</p>
+<ol style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; padding: 20px 30px; list-style-position: outside; list-style-image: initial; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+K – 均值算法给每个集群选择k个点。这些点称作为质心。
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+每一个数据点与距离最近的质心形成一个集群，也就是 k 个集群。
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+根据现有的类别成员，找出每个类别的质心。现在我们有了新质心。
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+当我们有新质心后，重复步骤 2 和步骤 3。找到距离每个数据点最近的质心，并与新的k集群联系起来。重复这个过程，直到数据都收敛了，也就是当质心不再改变。
+</span>
+</li>
+</ol>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+如何决定 K 值：
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+K – 均值算法涉及到集群，每个集群有自己的质心。一个集群内的质心和各数据点之间距离的平方和形成了这个集群的平方值之和。同时，当所有集群的平方值之和加起来的时候，就组成了集群方案的平方值之和。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+我们知道，当集群的数量增加时，K值会持续下降。但是，如果你将结果用图表来表示，你会看到距离的平方总和快速减少。到某个值 k 之后，减少的速度就大大下降了。在此，我们可以找到集群数量的最优值。
+</span>
+</p>
+<div class="pgc-img" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/8ee2a29f36074ffd983867870ba59e3f" alt="機器學習10種經典算法的Python實現">
+<p class="pgc-img-caption" style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; padding: 0px; text-align: center; font-size: 12px; color: rgb(119, 119, 119); line-height: 16px;">
+</p>
+</div>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+Python代码
+</span>
+</p>
+<pre style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-family: Consolas, Menlo, Courier, monospace; white-space: pre-wrap; position: relative; line-height: 1.5; color: rgb(153, 153, 153); margin-top: 1em; margin-bottom: 1em; padding: 12px 10px; background-color: rgb(244, 245, 246); border: 1px solid rgb(232, 232, 232);"><span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font></font>
+#Import Library<font></font>
+<br><font></font>
+from sklearn.cluster import KMeans<font></font>
+<br><font></font>
+#Assumed you have, X (attributes) for training data set and x_test(attributes) of test_dataset<font></font>
+<br><font></font>
+# Create KNeighbors classifier object model <font></font>
+<br><font></font>
+k_means = KMeans(n_clusters=3, random_state=0)<font></font>
+<br><font></font>
+# Train the model using the training sets and check score<font></font>
+<br><font></font>
+model.fit(X)<font></font>
+<br><font></font>
+#Predict Output<font></font>
+<br><font></font>
+predicted= model.predict(x_test)<font></font>
+<br>
+</span>
+</pre>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+8、随机森林
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+随机森林是表示决策树总体的一个专有名词。在随机森林算法中，我们有一系列的决策树（因此又名“森林”）。为了根据一个新对象的属性将其分类，每一个决策树有一个分类，称之为这个决策树“投票”给该分类。这个森林选择获得森林里（在所有树中）获得票数最多的分类。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+每棵树是像这样种植养成的：
+</span>
+</p>
+<ol style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; padding: 20px 30px; list-style-position: outside; list-style-image: initial; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+如果训练集的案例数是 N，则从 N 个案例中用重置抽样法随机抽取样本。这个样本将作为“养育”树的训练集。
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+假如有 M 个输入变量，则定义一个数字 m&lt;&lt;M。m 表示，从 M 中随机选中 m 个变量，这 m 个变量中最好的切分会被用来切分该节点。在种植森林的过程中，m 的值保持不变。
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+尽可能大地种植每一棵树，全程不剪枝。
+</span>
+</li>
+</ol>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+若想了解这个算法的更多细节，比较决策树以及优化模型参数，我建议你阅读以下文章：
+</span>
+</p>
+<ol style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; padding: 20px 30px; list-style-position: outside; list-style-image: initial; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+随机森林入门—简化版
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+将 CART 模型与随机森林比较（上）
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+将随机森林与 CART 模型比较（下）
+</span>
+</li>
+<li style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0px; padding: 0px; list-style: inherit;">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+调整你的随机森林模型参数
+</span>
+</li>
+</ol>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+Python
+</span>
+</p>
+<pre style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-family: Consolas, Menlo, Courier, monospace; white-space: pre-wrap; position: relative; line-height: 1.5; color: rgb(153, 153, 153); margin-top: 1em; margin-bottom: 1em; padding: 12px 10px; background-color: rgb(244, 245, 246); border: 1px solid rgb(232, 232, 232);"><span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font></font>
+#Import Library<font></font>
+<br><font></font>
+from sklearn.ensemble import RandomForestClassifier<font></font>
+<br><font></font>
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset<font></font>
+<br><font></font>
+# Create Random Forest object<font></font>
+<br><font></font>
+model= RandomForestClassifier()<font></font>
+<br><font></font>
+# Train the model using the training sets and check score<font></font>
+<br><font></font>
+model.fit(X, y)<font></font>
+<br><font></font>
+#Predict Output<font></font>
+<br><font></font>
+predicted= model.predict(x_test)<font></font>
+<br>
+</span>
+</pre>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+9、降维算法
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+在过去的 4 到 5 年里，在每一个可能的阶段，信息捕捉都呈指数增长。公司、政府机构、研究组织在应对着新资源以外，还捕捉详尽的信息。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+举个例子：电子商务公司更详细地捕捉关于顾客的资料：个人信息、网络浏览记录、他们的喜恶、购买记录、反馈以及别的许多信息，比你身边的杂货店售货员更加关注你。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+作为一个数据科学家，我们提供的数据包含许多特点。这听起来给建立一个经得起考研的模型提供了很好材料，但有一个挑战：如何从 1000 或者 2000 里分辨出最重要的变量呢？在这种情况下，降维算法和别的一些算法（比如决策树、随机森林、PCA、因子分析）帮助我们根据相关矩阵，缺失的值的比例和别的要素来找出这些重要变量。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+想要知道更多关于该算法的信息，可以阅读 《降维算法的初学者指南》 。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+Python代码
+</span>
+</p>
+<pre style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-family: Consolas, Menlo, Courier, monospace; white-space: pre-wrap; position: relative; line-height: 1.5; color: rgb(153, 153, 153); margin-top: 1em; margin-bottom: 1em; padding: 12px 10px; background-color: rgb(244, 245, 246); border: 1px solid rgb(232, 232, 232);"><span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font></font>
+#Import Library<font></font>
+<br><font></font>
+from sklearn import decomposition<font></font>
+<br><font></font>
+#Assumed you have training and test data set as train and test<font></font>
+<br><font></font>
+# Create PCA obeject pca= decomposition.PCA(n_components=k) #default value of k =min(n_sample, n_features)<font></font>
+<br><font></font>
+# For Factor analysis<font></font>
+<br><font></font>
+#fa= decomposition.FactorAnalysis()<font></font>
+<br><font></font>
+# Reduced the dimension of training dataset using PCA<font></font>
+<br><font></font>
+train_reduced = pca.fit_transform(train)<font></font>
+<br><font></font>
+#Reduced the dimension of test dataset<font></font>
+<br><font></font>
+test_reduced = pca.transform(test)<font></font>
+<br><font></font>
+#For more detail on this, please refer this link.<font></font>
+<br>
+</span>
+</pre>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+10、Gradient Boosting 和 AdaBoost 算法
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+当我们要处理很多数据来做一个有高预测能力的预测时，我们会用到 GBM 和 AdaBoost 这两种 boosting 算法。boosting 算法是一种集成学习算法。它结合了建立在多个基础估计值基础上的预测结果，来增进单个估计值的可靠程度。这些 boosting 算法通常在数据科学比赛如 Kaggl、AV Hackathon、CrowdAnalytix 中很有效。
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;">
+更多： 详尽了解 Gradient 和 AdaBoost
+</span>
+</p>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-weight: 700; font-family: 楷体, 楷体_GB2312, SimKai;">
+Python代码
+</span>
+</p>
+<pre style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; font-family: Consolas, Menlo, Courier, monospace; white-space: pre-wrap; position: relative; line-height: 1.5; color: rgb(153, 153, 153); margin-top: 1em; margin-bottom: 1em; padding: 12px 10px; background-color: rgb(244, 245, 246); border: 1px solid rgb(232, 232, 232);"><span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font></font>
+#Import Library<font></font>
+<br><font></font>
+from sklearn.ensemble import GradientBoostingClassifier<font></font>
+<br><font></font>
+#Assumed you have, X (predictor) and Y (target) for training data set and x_test(predictor) of test_dataset<font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+# Create Gradient Boosting Classifier object</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+model= GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=0)</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+# Train the model using the training sets and check score</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+model.fit(X, y)</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+#Predict Output</font></font><font></font>
+<br><font></font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+predicted= model.predict(x_test)</font></font><font></font>
+<br>
+</span>
+</pre>
+<p style="-webkit-tap-highlight-color: transparent; box-sizing: border-box; margin-top: 16px; margin-bottom: 16px; padding: 0px; color: rgb(34, 34, 34); font-family: &quot;PingFang SC&quot;, &quot;Hiragino Sans GB&quot;, &quot;Microsoft YaHei&quot;, &quot;WenQuanYi Micro Hei&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif; white-space: normal; background-color: rgb(255, 255, 255);">
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+GradientBoostingClassifier 和隨機森林是兩種不同的boosting 樹分類器。</font><font style="vertical-align: inherit;">人們常常問起這兩個算法之間的區別。
+</font></font></span>
+</p>
+<p>
+<span style="font-family: 楷体, 楷体_GB2312, SimKai;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+https://www.toutiao.com/a6724079298635891211/
+</font></font></span>
+</p>
+                                                            <p style="clear:both;"></p>
+                    <p class="translate"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                                                    來自“ ITPUB博客” ，鏈接：http://blog.itpub.net/29829936/viewspace-2653483/，如需轉載，請註明出處，否則將追究法律責任。
+                                            </font></font></p>
+
+                </div>
+            </div>
+                            <div class="preview-footer clearfix">
+                    <!--已点赞、收藏-->
+                    <div class="icon-praise" id="praise" onclick="blogObj.praise($(this),&#39;/praise/&#39;)"><span class="text"></span><span class="num"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">0</font></font></span></div>
+                    <div class="icon-collect" id="collect" onclick="blogObj.praise($(this),&#39;/favour/&#39;)"><span class="text"></span><span class="num"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">0</font></font></span></div>
+                    <div class="share-group fr">
+                        <div class="bdsharebuttonbox bdshare-button-style0-16" data-bd-bind="1578832878594">
+                            <span class="fl"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">分享到：</font></font></span>
+                            <a href="javascript:;" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                            <a href="javascript:;" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+                            <a href="javascript:;" class="bds_qzone" data-cmd="qzone" title="分享到QQ空間"></a>
+                            <a href="javascript:;" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+                        </div>
+
+                        <script>
+                            window._bd_share_config = {
+                                "common": {
+                                    "bdSnsKey": {},
+                                    "bdText": "",
+                                    "bdDesc": "",
+                                    "bdMini": "",
+                                    "bdMiniList": false,
+                                    "bdPic": "",
+                                    "bdStyle": "0",
+                                    "bdSize": "32"
+                                }, "share": {"bdSize": 16}
+                            };
+                            with (document)
+                                0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+                            if ($(window).width() < 1320) {
+                                if ($(window).width() < 1200) {
+                                    $(".sideslip").css({
+                                        "left": "20px",
+                                        "margin-left": 0
+                                    })
+                                } else {
+                                    $(".sideslip").css({
+                                        "margin-left": "-590px"
+                                    })
+                                }
+                            }</script>
+                    </div>
+
+                </div>
+
+                <div class="article-context">
+                    <div class="fl">
+                        <span class="color77"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">上一篇：</font></font></span>
+                                                    <a href="http://blog.itpub.net/29829936/viewspace-2653482/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">史上最簡單的人臉識別項目登上GitHub趨勢榜</font></font></a>
+                        
+                    </div>
+                    <div class="fr">
+                        <span class="color77"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">下一篇：</font></font></span>
+                                                    <a href="http://blog.itpub.net/29829936/viewspace-2653484/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">這位22歲華裔青年，用3年創造出矽谷最新AI獨角獸</font></font></a>
+                                            </div>
+                </div>
+
+                <input type="hidden" id="blogId" value="2653483">
+
+
+                <!--评论开始-->
+                <div class="blog-comment">
+                    <div class="new-comment">
+                        <input type="hidden" id="hid" name="hid" value="2653483">
+                        <input type="hidden" name="_token" value="rd0lZvHhEPT84dSZSGPLnLBauOj7MijQj6ZRfRKk">
+                        <a class="avatar" href="javascript:;">
+                            <img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/user_pic_default.png"></a>
+                        <!--用户未登录-->
+
+                        <div class="sign-container">
+                            <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">請登錄後發表評論</font></font></span>
+                            <font style="vertical-align: inherit;"><a class="layui-btn ml30" onclick="blog.login(event)"><font style="vertical-align: inherit;">登錄</font></a></font><a class="btn btn-sign">
+                                </a><a class="layui-btn ml30" onclick="blog.login(event)"><font style="vertical-align: inherit;"></font></a>
+                            
+                        </div>
+
+                        <!--用户已登录-->
+                        <textarea placeholder="请写下你的评论…" onfocus="blogObj.textareaFocus($(this),200)" maxlength="200" style="display: none;"></textarea>
+
+
+                    </div>
+                    <div class="comment-list">
+                        <div class="top-title"><span class="all-comment"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">全部評論</font></font></span> <span class="colorbb ml20"></span>
+                        </div>
+                        <div class="comment-items" id="comment_items">
+                            <script type="text/template" id="blog_template">
+                                <%for(var i=0;i
+                                <items.length;i++){%>
+                                <div class="comment-item">
+                                    <div class="author">
+                                        <a target="_blank" href="/<%=items[i].uid%>" class="avatar">
+                                    <img src="<%=items[i].headimg%>" alt="">
+
+                                </a>
+                                <div class="info">
+                                    <div class="name"><a target="_blank" href="/<%=items[i].uid%>"><%=items[i].username%></a> <span class="fr reply-btn" onclick="blogObj.newComment($(this),'<%=items[i].username%>',<%=items[i].id%>)">回复</span></div>
+                                    <div class="time colorbb"><%=items[i].createtime%></div>
+                                </div>
+                            </div>
+                            <p class="comment-wrap"><%=items[i].content%></p>
+                            <%if(items[i].items.items.length) { %>
+
+                            <div class="sub-comment-list">
+                                <%for(var j=0;j<items[i].items.items.length;j++){%>
+                                <div class="sub-comment">
+                                    <div class="color77 time-reply">
+                                        <span  class="time"><%=items[i].items.items[j].createtime%></span>
+                                        <span class="reply-btn fr" onclick="blogObj.newComment($(this),'<%=items[i].items.items[j].username%>',<%=items[i].items.items[j].id%>)">回复</span>
+                                    </div>
+                                    <p><a href="/<%=items[i].uid%>"><%=items[i].items.items[j].username%></a>&nbsp;&nbsp;&nbsp;回复&nbsp;&nbsp;&nbsp;<a href="/<%=items[i].touid%>"><%=items[i].items.items[j].tousername%></a>： <span class="content"><%=items[i].items.items[j].content%></span></p>
+                                </div>
+                                <%}%>
+                                <%if(items[i].items.total > 5) { %>
+                                <div class="more-comment"><span class="sub-comment-count">还有<i class="count"><%=items[i].items.total-5%></i>条评论</span><span class="more-comment-btn" onclick=blogObj.loadSubComment($(this),<%=items[i].id%>) data-count=1 data-flag=true>点击查看</span></div>
+                                <%}%>
+
+                            </div>
+                            <%}%>
+                        </div>
+                        <%}%>
+                        </script>
+                </div> <div class="blog-default"> <img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/search_pic_kong.svg" alt=""> </div>
+
+            </div>
+
+        </div>
+        <!--评论结束-->
+            </div>
+    <script>
+            </script>
+    <div class="fr w290">
+        <!--作者信息开始-->
+        <!--作者信息开始-->
+<div class="author-info right-fixed ">
+            <div class="icon-expert"></div>
+        <div class="head-img">
+        <a href="http://blog.itpub.net/29829936/"><img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/avatar.php" alt=""></a>
+    </div>
+    <div class="author-name"><a href="http://blog.itpub.net/29829936/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">dicksonjyl560101</font></font></a></div>
+                    <div class="expert-name"><a href="http://blog.itpub.net/29829936/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">專家姓名：金玉林</font></font></a></div>
+            <div class="author-intro"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+        行萬里路，讀萬卷書，閱無數人。</font><font style="vertical-align: inherit;">吃貨一枚，愛吃湘菜，川菜，粵菜與杭幫菜，嚐遍天下美食。</font><font style="vertical-align: inherit;">攝影愛好者，遊遍名川大山，江河胡海，賞遍人間春色。</font><font style="vertical-align: inherit;">愛看影，尤其是港片，好萊塢大片。</font><font style="vertical-align: inherit;">英文名：DicksonJin, 網名：風一樣的BOY。</font><font style="vertical-align: inherit;">精通SAP供應鏈諮詢。</font><font style="vertical-align: inherit;">2017年開始研習人工智能。
+    </font></font></div>
+            <p class="register-time"><span class="color77"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">註冊時間：</font></font></span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 2014-08-27</font></font></p>
+            <ul class="tree-list clearfix">
+        <li>
+            <div class="item-tt"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">博文量</font></font></div>
+            <a href="http://blog.itpub.net/29829936/"><span class="item-num blognum"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2236</font></font></span></a>
+        </li>
+        <li>
+            <div class="item-tt"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">訪問量</font></font></div>
+            <div class="item-num blogviewnum"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">3412959</font></font></div>
+        </li>
+    </ul>
+
+</div>
+<!--作者信息结束-->
+
+<script>
+    var data = {uid: 29829936};
+    $._ajax({
+        url: '/getAuthorInfo/',
+        data: data,
+        type: 'get',
+        dataType: 'json',
+        success: function (data) {
+            if (data.code == 200) {
+                var data = data.data;
+                $(".blognum").text(data.blognum);
+                $(".blogviewnum").text(data.visitednum);
+            }
+        }
+    });
+</script>        <!--作者信息结束-->
+
+                <!--博文推荐开始-->
+        <div class="blog-choice right-fixed" style="position: fixed; top: 0px; left: 1261.5px;">
+            <h3 class="choice-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">最新文章</font></font></h3>
+            <ul class="newul">
+                            <li class="new-item">
+                <a href="http://blog.itpub.net/29829936/viewspace-2672768/" class="clearfix"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                       不經意之中成就他人，需要緣分
+                </font></font></a>
+                </li>
+                            <li class="new-item">
+                <a href="http://blog.itpub.net/29829936/viewspace-2672465/" class="clearfix"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                       告別2019：屬於深度學習的十年，那些我們必須知道的經典
+                </font></font></a>
+                </li>
+                            <li class="new-item">
+                <a href="http://blog.itpub.net/29829936/viewspace-2672461/" class="clearfix"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                       一文看盡2019年NLP前沿突破
+                </font></font></a>
+                </li>
+                            <li class="new-item">
+                <a href="http://blog.itpub.net/29829936/viewspace-2672458/" class="clearfix"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                       深度學習的應用與實踐
+                </font></font></a>
+                </li>
+                            <li class="new-item">
+                <a href="http://blog.itpub.net/29829936/viewspace-2672316/" class="clearfix"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                       SAP S4HANA如何取到採購訂單ITEM裡的'條件'選項卡里的條件類型值？
+                </font></font></a>
+                </li>
+                            <li class="new-item">
+                <a href="http://blog.itpub.net/29829936/viewspace-2672154/" class="clearfix"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                       SAP 對HU做貨物移動報錯-Only 0 serial numbers entered instead of 30 -
+                </font></font></a>
+                </li>
+                            <li class="new-item">
+                <a href="http://blog.itpub.net/29829936/viewspace-2670812/" class="clearfix"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                       交通安全培訓，讓我無比憧憬無人駕駛的未來
+                </font></font></a>
+                </li>
+                            <li class="new-item">
+                <a href="http://blog.itpub.net/29829936/viewspace-2670124/" class="clearfix"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                       SAP MM 一個含有多個賬號分配對象的行項目的PO及其收貨
+                </font></font></a>
+                </li>
+                            <li class="new-item">
+                <a href="http://blog.itpub.net/29829936/viewspace-2670122/" class="clearfix"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                       國外的月亮並不比國內圓---《葉問4》觀後感
+                </font></font></a>
+                </li>
+                            <li class="new-item">
+                <a href="http://blog.itpub.net/29829936/viewspace-2669868/" class="clearfix"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                       清華2019最新AI發展報告出爐！</font><font style="vertical-align: inherit;">400頁乾貨，13大領域一文看懂
+                </font></font></a>
+                </li>
+                        <ul>
+
+
+        </ul></ul></div>
+        <!--大牛精选结束-->
+            </div>
+</div>
+<div class="icon-back-top" onclick="$(&#39;html,body&#39;).animate({scrollTop:0},&#39;slow&#39;);" style="display: block;"></div>
+    <!--main部分结束-->
+
+<!--百度推送-->
+    <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+    </script>
+<!--2020-01-12 11:00:30-->
+
+<!--footer部分开始-->
+<div class="blog-footer">
+    <div class="w1200 pr">
+        <div class="footer-links">
+            <a class="icon-blog icon-wx mr30">
+                <div class="wx-qrcode">
+                    <img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/qrcode.jpg" alt="">
+
+                </div>
+            </a>
+            <a href="https://weibo.com/itpub2001?from=myfollow_all" class="icon-blog icon-wb" target="_blank"></a>
+        </div>
+        <p class="footer-nav">
+            <a href="http://www.it168.com/bottomfile/it168.shtml" target="_blank"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">支持我們</font></font></a>
+            <a href="http://www.it168.com/bottomfile/tgzn.shtml" target="_blank"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">作者招募</font></font></a>
+            <a href="http://www.it168.com/bottomfile/sytk.shtml" target="_blank"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">用戶協議</font></font></a>
+            <a href="http://blog.itpub.net/31509949/viewspace-2157750/" target="_blank"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">FAQ </font></font></a>
+            <a href="http://edu.itpub.net/contactus.html" target="_blank"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Contact Us </font></font></a>
+            <script src="./機器學習10種經典算法的Python實現_ITPUB博客_files/z_stat.php" language="JavaScript"></script><script src="./機器學習10種經典算法的Python實現_ITPUB博客_files/core.php" charset="utf-8" type="text/javascript"></script><a href="https://www.cnzz.com/stat/website.php?web_id=1274521965" target="_blank" title="站長統計"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">站長統計</font></font></a>
+        </p>
+        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">北京盛拓優訊信息技術有限公司.版權所有&nbsp;&nbsp; </font></font><a style="color:#777777;" target="_blank" href="http://beian.miit.gov.cn/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">京ICP備09055130號-4</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> &nbsp;&nbsp;北京市公安局海淀分局網監中心備案編號：11010802021510</font></font></p>
+        <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">廣播電視節目製作經營許可證(京) 字第1234號中國互聯網協會會員</font></font></p>
+    </div>
+</div>
+<!--footer部分结束-->
+
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?5016281862f595e78ffa42f085ea0f49";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<!-- END STAT PV --><div id="goog-gt-tt" class="skiptranslate" dir="ltr"><div style="padding: 8px;"><div><div class="logo"><img src="./機器學習10種經典算法的Python實現_ITPUB博客_files/translate_24dp.png" width="20" height="20" alt="Google 翻譯"></div></div></div><div class="top" style="padding: 8px; float: left; width: 100%;"><h1 class="title gray">原文</h1></div><div class="middle" style="padding: 8px;"><div class="original-text"></div></div><div class="bottom" style="padding: 8px;"><div class="activity-links"><span class="activity-link">建議更好的譯法</span><span class="activity-link"></span></div><div class="started-activity-container"><hr style="color: #CCC; background-color: #CCC; height: 1px; border: none;"><div class="activity-root"></div></div></div><div class="status-message" style="display: none;"></div></div>
+
+
+<div class="goog-te-spinner-pos"><div class="goog-te-spinner-animation"><svg xmlns="http://www.w3.org/2000/svg" class="goog-te-spinner" width="96px" height="96px" viewBox="0 0 66 66"><circle class="goog-te-spinner-path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg></div></div></body></html>

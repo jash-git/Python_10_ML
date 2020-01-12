@@ -1,4 +1,4 @@
-機器學習10種經典算法的Python實現[Python_ML]
+機器學習10種經典算法的Python實現[Python_10_ML]
 
 資料來源: http://blog.itpub.net/29829936/viewspace-2653483/
 
